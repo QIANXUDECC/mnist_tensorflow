@@ -1,10 +1,9 @@
 import tensorflow as tf
 import numpy as np
-from tensorflow.examples.tutorials.mnist import input_data
 import mnist_lenet5_forward
+from tensorflow.examples.tutorials.mnist import input_data
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 
 BATCH_SIZE = 100
 LEARNING_RATE_BASE = 0.005
@@ -65,19 +64,18 @@ def backward(mnist):
                 mnist_lenet5_forward.IMAGE_SIZE,
                 mnist_lenet5_forward.NUM_CHANNELS)
             )
-        _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict={
+            _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict={
                                        x: reshaped_xs, y_: ys})
-        if i % 100 == 0:
-            print("After %d trainging steps,loss on training batch is %g" %
+            if i % 100 == 0:
+                print("After %d trainging steps,loss on training batch is %g" %
                   (step, loss_value))
-            saver.save(sess, os.path.join(MODEL_SAVE_PATH,
+                saver.save(sess, os.path.join(MODEL_SAVE_PATH,
                                           MODEL_NAME), global_step=global_step)
 
 
 def main():
     mnist = input_data.read_data_sets("E:/dataset/MNIST_data", one_hot=True)
     backward(mnist)
-
 
 
 if __name__ == '__main__':
